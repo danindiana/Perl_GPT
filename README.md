@@ -167,3 +167,43 @@ Perl is a powerful scripting language that excels in automation tasks due to its
 20. Internet of Things (IoT) Automation: Perl can be used in IoT applications for collecting sensor data, processing it, and controlling connected devices.
 
 Perl's flexibility, ease of use, and extensive library support make it a popular choice for various scripting and automation tasks across different domains and industries.
+
+
+Merge_dirs_v2.pl:
+
+
+Here's a detailed step-by-step explanation of the Perl program:
+
+1. Shebang Line and Pragmas:
+
+#!/usr/bin/perl: Tells the operating system to use Perl to execute the script.
+use strict;: Enforces stricter variable and code syntax for better error checking.
+use warnings;: Enables warnings to catch potential issues during execution.
+2. Input and Validation:
+
+Prompts the user to enter the source and destination directory names.
+Stores the input in variables $source_dir and $destination_dir.
+Uses -d to check if both directories exist and terminates with an error message if either is missing.
+3. Initialization:
+
+Sets $moved_files to 0 to count the number of files moved.
+Sets $total_data_transferred to 0 to track the total data moved.
+4. Processing Files:
+
+Opens the source directory using opendir and assigns a directory handle $source_dh.
+Loops through each filename in the source directory using readdir.
+Skips the current and parent directory entries (. and ..).
+Constructs full file paths for the source and destination files.
+Skips files if they already exist in the destination to avoid overwriting.
+Checks if the source file is a symbolic link (-l) and skips it, printing a message.
+For regular files:
+Gets the file size using -s.
+Moves the file using rename or terminates with an error if unsuccessful.
+Increments $moved_files and $total_data_transferred.
+Prints a message indicating the successful move and file size.
+Closes the source directory handle using closedir.
+5. Telemetry and Optional Removal:
+
+Prints a summary of the merged files and total data transferred.
+Optionally removes the source directory if it's empty (by uncommenting the rmdir line).
+Prints a message indicating completion.
