@@ -111,6 +111,7 @@ shellgenie-parser/
 └── docs/                    # Documentation for the component
     └── README.md            
 ```
+Explain how the ShellGenie command parser receives input from a language model (either a model running on local hardware such as ollama, llama.cpp, or via an API such as OpenAI's Core API endpoint).
 
 ### Explanation:
 
@@ -128,3 +129,32 @@ shellgenie-parser/
 * **`docs/`**: Houses documentation for the component, including:
     * **`README.md`**: A brief overview of the parser's functionality, usage instructions, and contributing guidelines.
     * Additional documentation files as needed (API documentation, etc.).
+
+
+
+ShellGenie's command parser relies on receiving structured input from its integrated language model.  Here's how it would work with different scenarios:
+
+**1. Local Language Model (e.g., Ollama, Llama.cpp):**
+
+* **Direct Communication:** ShellGenie would likely utilize libraries or protocols designed for inter-process communication (IPC) to directly exchange data between the command parser and the language model process running locally.
+    *   Examples: Pipes (stdin/stdout), shared memory segments, message queues. 
+* **Input Format:**  The language model would need to output its processed user query in a format readily understood by the command parser. A common approach would be:
+
+    *  **JSON or YAML:** These structured formats are easy for parsing and can include fields like:
+        * `intent`: The general purpose of the user's request (e.g., "list files", "execute program").
+        * `command`: The specific command to execute (e.g., `ls -l`, `python my_script.py`).
+        * `arguments`: A list of arguments passed with the command (e.g., `file1.txt`, `-v`).
+
+**2. API Endpoint (e.g., OpenAI's Core API):**
+
+* **HTTP Requests:** ShellGenie would send HTTP requests to the language model's API endpoint, including the user's input as part of the request body.
+* **API Response Format:** The language model's API response would likely also be in a structured format like JSON, containing fields similar to those described above (intent, command, arguments). 
+* **Error Handling:** Robust error handling is crucial in this scenario. ShellGenie should:
+    *   Handle API rate limits gracefully.
+    *  Catch network errors and retry requests as appropriate.
+    *  Interpret API error responses and potentially display user-friendly messages.
+
+**Regardless of the integration method, here are key considerations:**
+
+* **Latency:** Minimize latency in communication between the language model and the command parser to ensure a responsive user experience. 
+* **Security:** When using APIs, implement proper authentication and authorization to protect sensitive data.
