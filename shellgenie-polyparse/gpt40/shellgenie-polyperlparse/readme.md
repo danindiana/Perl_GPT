@@ -115,3 +115,102 @@ graph TD
 5. **Output Handling**: The output from the Bash Shell Environment is returned through the Command Execution Engine to the ShellGenie Interface, which displays it to the user.
 
 By leveraging a polymorphic Perl parser, the ShellGenie system can efficiently handle a diverse range of commands, ensuring flexibility, extensibility, and robust performance.
+
+Explain how the ShellGenie command parser receives input from a language model (either a model running on local hardware such as ollama, llama.cpp, or via an API such as OpenAI's Core API endpoint).
+
+## How ShellGenie Command Parser Receives Input from a Language Model
+
+### Overview
+
+The ShellGenie system is designed to interface with language models to interpret user queries and convert them into actionable commands executed in a Bash shell environment. The command parser component plays a crucial role in this process, extracting and processing commands from the interpreted language model output. This document details how ShellGenie receives input from a language model running either on local hardware (e.g., ollama, llama.cpp) or via an API (e.g., OpenAI's Core API endpoint).
+
+### Components and Workflow
+
+1. **User Interface:**
+   - **Input:** The user enters a command or query through the ShellGenie interface.
+   - **Output:** The user receives the results or output from the executed command.
+
+2. **ShellGenie Interface:**
+   - **Function:** Acts as the intermediary between the user and the language model.
+   - **Tasks:**
+     - Receives user input.
+     - Sends the input to the language model.
+     - Receives the interpreted query from the language model.
+     - Forwards the interpreted query to the command parser.
+
+3. **Language Model:**
+   - **Function:** Interprets the user's natural language input and translates it into a structured command format.
+   - **Tasks:**
+     - Processes the user query.
+     - Generates an interpreted command string.
+     - Sends the interpreted command to the ShellGenie interface.
+
+4. **Command Parser:**
+   - **Function:** Extracts and validates the command from the interpreted query.
+   - **Tasks:**
+     - Receives the interpreted command string from the ShellGenie interface.
+     - Matches the command against registered parse patterns.
+     - Extracts command arguments and parameters.
+     - Validates and prepares the command for execution.
+
+5. **Command Execution Engine:**
+   - **Function:** Executes the parsed and validated command in a Bash shell environment.
+   - **Tasks:**
+     - Executes the command.
+     - Captures the output.
+     - Returns the output to the ShellGenie interface.
+
+6. **Bash Shell Environment:**
+   - **Function:** Provides the execution environment for the commands.
+   - **Tasks:**
+     - Executes commands passed by the Command Execution Engine.
+     - Returns results or output.
+
+### Detailed Interaction Flow
+
+1. **User Input:**
+   - The user enters a command (e.g., "list all files in the current directory").
+   
+2. **ShellGenie Interface:**
+   - Receives the user input.
+   - Sends the input to the language model for interpretation.
+
+3. **Language Model Processing:**
+   - If using a local model (e.g., ollama, llama.cpp):
+     - The ShellGenie interface sends the input to the local model running on the hardware.
+     - The local model processes the input and generates an interpreted command string (e.g., "ls -la").
+   - If using an API (e.g., OpenAI's Core API):
+     - The ShellGenie interface sends the input to the API endpoint.
+     - The API processes the input and returns an interpreted command string.
+
+4. **Receiving Interpreted Command:**
+   - The ShellGenie interface receives the interpreted command string from the language model.
+   - Forwards the interpreted command to the command parser.
+
+5. **Command Parsing:**
+   - The command parser matches the interpreted command string against registered parse patterns.
+   - Extracts and validates command arguments (e.g., options for the `ls` command).
+   - Prepares the command for execution.
+
+6. **Command Execution:**
+   - The Command Execution Engine receives the parsed and validated command.
+   - Executes the command in the Bash shell environment.
+   - Captures the output.
+
+7. **Output Handling:**
+   - The Bash shell environment returns the output of the command.
+   - The Command Execution Engine sends the output back to the ShellGenie interface.
+   - The ShellGenie interface displays the output to the user.
+
+### Example Interaction:
+
+1. **User:** "Show me the files in this directory."
+2. **ShellGenie Interface:** Sends query to the language model.
+3. **Language Model:** Interprets query and returns "ls -la".
+4. **ShellGenie Interface:** Forwards "ls -la" to the command parser.
+5. **Command Parser:** Matches pattern, extracts options, validates command.
+6. **Command Execution Engine:** Executes "ls -la" in Bash.
+7. **Bash Shell Environment:** Returns file list.
+8. **ShellGenie Interface:** Displays file list to the user.
+
+This detailed interaction flow ensures that the ShellGenie command parser effectively receives and processes input from a language model, whether running locally or accessed via an API, providing a seamless user experience.
