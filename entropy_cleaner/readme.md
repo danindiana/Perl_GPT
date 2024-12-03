@@ -168,3 +168,88 @@ This Perl script is a utility for identifying and optionally deleting text files
 ### Customization:
 - Adjust `$entropy_threshold` for different levels of randomness.
 - Modify file types to process (currently `.txt` files) as needed.
+
+Determining the right entropy threshold for filtering files depends on the nature of your data and what you consider "low-value" or "redundant" files. Here's how you can approach it:
+
+---
+
+### **1. Understand What Entropy Measures**
+Entropy measures the randomness or information density of a file:
+- **Low Entropy**: Indicates repetitive or structured data, such as:
+  - Files with a single repeated character or pattern.
+  - Empty files or files with minimal content.
+  - Simple text files like logs with repeated keywords.
+- **High Entropy**: Indicates more diverse or "random" content, such as:
+  - Natural language text.
+  - Files containing varied characters or data.
+
+---
+
+### **2. Inspect Your Files**
+Before deciding on a threshold, sample a few files to:
+- Calculate their entropy manually using the script's `calculate_entropy` function.
+- Compare their content and entropy values.
+  - **Low entropy (< 2)**: Likely repetitive or unimportant files.
+  - **Moderate entropy (2-4)**: Potentially meaningful, but simple files.
+  - **High entropy (> 4)**: Likely meaningful, complex, or diverse files.
+
+---
+
+### **3. Run the Script in Diagnostic Mode**
+Modify the script to display entropy values without removing files:
+- Comment out or skip the deletion code (`unlink` calls).
+- Add debug output to print entropy for all processed files, regardless of the threshold.
+
+Example output:
+```
+File: file1.txt    Entropy: 2.1
+File: file2.txt    Entropy: 3.8
+File: file3.txt    Entropy: 4.5
+```
+
+Analyze this output to see where meaningful and unimportant files fall in terms of entropy.
+
+---
+
+### **4. Experiment with Different Thresholds**
+Run the script with varying entropy thresholds, such as:
+- **Threshold = 2.0**: Focuses on removing extremely repetitive files.
+- **Threshold = 3.0**: Removes files with moderate repetition.
+- **Threshold = 3.5**: Removes files that are moderately diverse but not highly so.
+
+---
+
+### **5. Consider File Context**
+Different types of files and use cases might call for different thresholds:
+- **Log Files**: Typically have low entropy (1.0–2.5).
+- **Configuration Files**: May also have low entropy but can be important.
+- **Text Documents**: Usually have higher entropy (3.5–5.0+).
+
+---
+
+### **6. Automate Threshold Testing**
+You can modify the script to analyze and group files by entropy range for better visualization:
+- Collect files into entropy bins (e.g., 0–1, 1–2, 2–3, etc.).
+- Summarize or print the count of files in each bin.
+
+Example:
+```
+Entropy Range: 0–1    File Count: 10
+Entropy Range: 1–2    File Count: 25
+Entropy Range: 2–3    File Count: 40
+Entropy Range: 3–4    File Count: 15
+Entropy Range: 4+     File Count: 5
+```
+
+This helps you identify a "natural cutoff" where most files below a certain threshold are likely low-value.
+
+---
+
+### **7. Refine Threshold Iteratively**
+- Start with a conservative threshold (e.g., 2.0 or 3.0).
+- Review the flagged files.
+- Adjust the threshold based on the results, gradually tuning it to balance between removing junk and preserving meaningful files.
+
+---
+
+By testing and iterating, you can fine-tune the entropy threshold for your specific dataset and use case.
