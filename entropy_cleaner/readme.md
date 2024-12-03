@@ -75,3 +75,96 @@ foreach my $file (<*.txt>) {
 3. Run the script: `./clean_by_entropy.pl`.
 
 This approach provides a practical way to approximate the complexity of text files using entropy and clean unwanted files based on a complexity threshold. Adjust the entropy threshold to fit the specific characteristics of your corpus and the desired level of complexity for your RAG system.
+
+
+This Perl script is a utility for identifying and optionally deleting text files in a specified directory (or its subdirectories) based on their entropy. Here's an explanation of its components and functionality:
+
+### Key Functionalities:
+1. **Calculate File Entropy**:
+   - Entropy is a measure of randomness or information density in a file.
+   - Files with low entropy (less randomness) are likely to be less meaningful or highly repetitive (e.g., empty, very simple, or redundant data).
+
+2. **User Input**:
+   - The script prompts the user for a target directory.
+   - The user decides whether to search the directory recursively, including subdirectories.
+
+3. **File Filtering and Processing**:
+   - It scans the specified directory (and optionally subdirectories) for `.txt` files.
+   - For each `.txt` file, it computes entropy using the `calculate_entropy` subroutine.
+
+4. **Low-Entropy File Collection**:
+   - Files with entropy below a specified threshold (`$entropy_threshold`, set to `3.5` by default) are marked for potential removal.
+   - It keeps track of these files and their sizes to calculate the total size of files flagged for deletion.
+
+5. **User Confirmation and Deletion**:
+   - If low-entropy files are found, the script lists them with their entropy and size.
+   - It asks the user for confirmation before deleting the files.
+   - Upon confirmation, the files are deleted. Otherwise, the operation is aborted.
+
+---
+
+### Script Breakdown:
+
+#### 1. **Entropy Calculation (`calculate_entropy`)**:
+- Reads the file character by character.
+- Computes the frequency of each character.
+- Calculates entropy based on the Shannon entropy formula:
+  \[
+  \text{Entropy} = - \sum p_i \log_2(p_i)
+  \]
+  where \( p_i \) is the probability of each character.
+
+#### 2. **Directory Traversal**:
+- If the user chooses recursive search, it uses the `File::Find` module to walk through all files and subdirectories.
+- Otherwise, it lists files in the target directory using `opendir`.
+
+#### 3. **File Filtering**:
+- Only processes files with a `.txt` extension.
+- Ignores directories (`-f` ensures it is a file).
+
+#### 4. **Low-Entropy File Collection**:
+- Maintains an array of files to be removed, storing:
+  - File path
+  - Calculated entropy
+  - File size (in bytes)
+
+#### 5. **Interaction and Deletion**:
+- Displays the list of low-entropy files and the total size.
+- Prompts the user for confirmation.
+- Deletes the files if the user agrees.
+
+---
+
+### Example Workflow:
+1. **Prompt for Input**:
+   - Enter directory: `/home/user/documents`
+   - Recursive search: `y`
+
+2. **Process Files**:
+   - Scans `/home/user/documents` and all subdirectories for `.txt` files.
+   - Computes entropy for each file.
+
+3. **Display Results**:
+   - Lists files with entropy < 3.5 and their sizes:
+     ```
+     Files to be removed:
+     File: /home/user/documents/file1.txt    Entropy: 2.3       Size: 1200 bytes
+     File: /home/user/documents/subdir/file2.txt Entropy: 1.9   Size: 2500 bytes
+     Total size to be removed: 3700 bytes
+     ```
+
+4. **Confirmation**:
+   - User decides whether to delete the files.
+   - If `yes`, files are deleted.
+
+5. **Output**:
+   - Prints confirmation of deletion or message stating the operation was aborted.
+
+---
+
+### Practical Use Case:
+- Cleaning directories by removing redundant or low-value text files, such as log files with repetitive patterns or empty content.
+
+### Customization:
+- Adjust `$entropy_threshold` for different levels of randomness.
+- Modify file types to process (currently `.txt` files) as needed.
