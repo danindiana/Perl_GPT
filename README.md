@@ -1,209 +1,675 @@
 # Perl_GPT
-Perl programs generated using GPT
 
-Perl is a versatile programming language that can be used for a wide range of use cases, including:
-
-1. Text Processing: Perl is renowned for its text processing capabilities. It excels at handling regular expressions, making it ideal for tasks like searching, extracting, and manipulating text data.
-
-2. Scripting: Perl is commonly used as a scripting language for automating various tasks, file processing, system administration, and more.
-
-3. Web Development: Perl has been used historically for web development, especially with the CGI (Common Gateway Interface) for generating dynamic web content.
-
-4. Data Manipulation: Perl is adept at processing structured and unstructured data, making it suitable for tasks like data cleaning, transformation, and reporting.
-
-5. Systems Administration: Perl's rich set of built-in functions and modules, along with its ability to interact with the system, make it popular for managing and automating system administration tasks.
-
-6. Networking: Perl can handle networking tasks such as socket programming, client-server communication, and building network utilities.
-
-7. Database Interactions: Perl has various database connectors and libraries, allowing it to interact with different database systems for data retrieval and manipulation.
-
-8. GUI Development: Perl can be used for building graphical user interfaces (GUIs) using modules like Tk, enabling the creation of desktop applications with graphical elements.
-
-9. Bioinformatics: Perl has been extensively used in bioinformatics for tasks like sequence analysis, processing genomics data, and bioinformatics algorithm development.
-
-10. Regular Maintenance Scripts: Perl is often employed for writing maintenance scripts for cleaning up logs, backup management, and other recurring tasks.
-
-11. Automation and Testing: Perl's flexibility and easy-to-write nature make it suitable for automation and test scripting in software development and quality assurance.
-
-12. Report Generation: Perl can generate reports from data, making it useful for generating charts, graphs, and formatted reports.
-
-13. Data Scraping: Perl can be used for web scraping and extracting data from websites, making it valuable for data mining and analysis.
-
-14. Security and Penetration Testing: Perl's capabilities in networking, text processing, and system interactions make it a viable choice for security-related tasks and penetration testing.
-
-15. Task Automation on UNIX/Linux Systems: Perl is commonly used for automating tasks on UNIX/Linux systems due to its compatibility with shell commands and system functions.
-
-These are just a few examples of the many use cases for Perl. Its flexibility, text processing prowess, and extensive library support have made it a popular language for a wide range of applications over the years.
-
-Certainly! Perl's text processing capabilities are one of its most significant strengths. Here's a further list of text processing use cases and capabilities that Perl excels at:
-
-1. Pattern Matching: Perl's regular expression support allows for powerful pattern matching and search operations in text data. It can efficiently identify and extract specific patterns within the text.
-
-2. Text Parsing: Perl can parse structured and unstructured text data, making it suitable for tasks like extracting information from log files, configuration files, and other text-based data formats.
-
-3. Text Transformation: Perl can easily transform text data from one format to another. It can modify text content, rearrange data, or apply formatting rules.
-
-4. Data Extraction: Perl can extract specific data from large text files or streams, making it useful for data mining and data extraction tasks.
-
-5. Text Cleaning: Perl can clean up messy text data by removing unwanted characters, fixing line endings, and normalizing whitespace.
-
-6. String Manipulation: Perl provides a wide range of string manipulation functions, allowing for tasks like concatenation, splitting, trimming, and case conversions.
-
-7. Text Comparisons: Perl can compare text data and highlight differences, enabling tasks like file comparison and finding changes in configuration files.
-
-8. Text Filtering: Perl can filter text data based on certain criteria, such as lines containing specific keywords or meeting specific conditions.
-
-9. Text Substitution: Perl can perform find-and-replace operations on text data using regular expressions or simple string substitutions.
-
-10. Report Generation: Perl can generate formatted reports from data, making it valuable for producing detailed output or summary reports.
-
-11. Log File Analysis: Perl is commonly used for analyzing log files, extracting relevant information, and generating statistics or summaries.
-
-12. Natural Language Processing (NLP): Perl can be used in basic NLP tasks like text tokenization, stemming, and part-of-speech tagging.
-
-13. Data Encryption/Decryption: Perl can handle text data encryption and decryption, making it useful for secure data transmission and storage.
-
-14. Text Compression/Decompression: Perl can interact with compression libraries, allowing it to compress and decompress text data.
-
-15. Text Annotation: Perl can add annotations or metadata to text data for further processing or identification.
-
-16. Text Validation: Perl can validate text data against predefined rules or patterns, ensuring data integrity and correctness.
-
-17. Code Generation: Perl can generate code or text templates dynamically, facilitating code generation for various programming tasks.
-
-18. Keyword Analysis: Perl can analyze text data to identify and count the occurrences of specific keywords or phrases.
-
-19. Text-to-Speech (TTS): Perl can interface with TTS libraries to convert text data into spoken words.
-
-20. Text-to-HTML Conversion: Perl can convert plain text into HTML format, enabling easy display of text on web pages.
-
-These are just a few examples of how Perl's text processing capabilities can be utilized. Whether it's simple string manipulation or complex pattern matching, Perl remains a popular choice for text processing tasks due to its concise syntax and extensive regex support.
-
-
-Perl is well-suited for data scraping tasks due to its strong text processing capabilities and a wide range of modules that facilitate web scraping. Here's a further list of data scraping use cases and capabilities that Perl can handle:
-
-1. Web Page Scraping: Perl can scrape data from web pages by sending HTTP requests, parsing the HTML content, and extracting relevant information using regular expressions or modules like `HTML::Parser`, `HTML::TreeBuilder`, or `Mojo::DOM`.
-
-2. Web Data Extraction: Perl can extract structured data from websites, including tables, lists, and other structured HTML elements.
-
-3. Screen Scraping: Perl can scrape data from terminal-based applications or screen-scrapable interfaces by interacting with the terminal and capturing output.
-
-4. API Scraping: Perl can scrape data from various web APIs by sending HTTP requests and processing the JSON, XML, or other data formats received in response.
-
-5. Web Form Filling: Perl can fill out web forms and interact with web applications to access data behind login pages or to perform automated actions.
-
-6. Web Image Scraping: Perl can scrape images from websites, download them, and process or store them as needed.
-
-7. Social Media Scraping: Perl can scrape data from social media platforms, such as Twitter, Facebook, or LinkedIn, for analyzing trends or user interactions.
-
-8. Product Price Monitoring: Perl can be used to monitor prices of products on e-commerce websites and extract price changes for analysis.
-
-9. Job Listing Scraping: Perl can scrape job listings from various job portals for aggregating job information or analyzing job market trends.
-
-10. News Article Scraping: Perl can scrape news articles from different news websites for content analysis or monitoring.
-
-11. Real Estate Data Scraping: Perl can scrape real estate listing data, property prices, and other related information from real estate websites.
-
-12. Weather Data Scraping: Perl can scrape weather data from weather websites or APIs for generating weather reports or analysis.
-
-13. Stock Market Data Scraping: Perl can scrape stock market data, such as stock prices and financial indicators, from financial websites.
-
-14. Academic Research: Perl can be used in academic research for collecting data from online sources, such as academic publications or research databases.
-
-15. Image Metadata Scraping: Perl can scrape metadata from images, such as EXIF data, for cataloging or analysis.
-
-16. Government Data Scraping: Perl can scrape data from government websites for accessing public records, statistics, or legislative information.
-
-17. Competitor Analysis: Perl can be used to scrape data from competitor websites for competitive analysis or market research.
-
-18. Movie and TV Show Data Scraping: Perl can scrape movie or TV show data from IMDb or other entertainment websites.
-
-19. Sports Data Scraping: Perl can scrape sports-related data, such as scores, player statistics, or match schedules, from sports websites.
-
-20. Financial Data Scraping: Perl can scrape financial data like currency exchange rates, interest rates, or economic indicators from financial websites.
-
-Please note that when performing web scraping, it's essential to comply with website terms of service, robots.txt guidelines, and legal regulations to avoid any potential legal issues or ethical concerns. Additionally, always be respectful to the website's server and avoid causing unnecessary load or disrupting the website's performance while scraping data.
-
-Perl is a powerful scripting language that excels in automation tasks due to its concise syntax, text processing capabilities, and extensive library support. Here's a further list of Perl scripting and automation use cases and capabilities:
-
-1. File and Directory Operations: Perl can automate file and directory tasks like copying, moving, renaming, and deleting files. It can also create directory structures and traverse directories to process files in bulk.
-
-2. Data Backup and Archiving: Perl can be used to automate data backup processes, compress data for archiving, and schedule periodic backups.
-
-3. Log Analysis: Perl can automate log file analysis, extract relevant information, and generate reports for monitoring system events and performance.
-
-4. System Monitoring and Reporting: Perl can automate system monitoring tasks by collecting system metrics and generating reports or alerts based on predefined conditions.
-
-5. Configuration Management: Perl can automate configuration management tasks, such as updating configuration files or deploying configurations to multiple servers.
-
-6. Task Scheduling: Perl scripts can schedule and execute tasks at specific intervals or based on events, making it useful for periodic maintenance and data processing.
-
-7. Software Deployment: Perl can automate software deployment tasks, including downloading packages, installing software, and handling dependencies.
-
-8. Text Processing and Report Generation: Perl can automate text processing tasks, analyze data, and generate formatted reports for analysis or presentation.
-
-9. Web Scraping and Automation: Perl can automate web interactions, including web form filling, web page scraping, and automated testing of web applications.
-
-10. Database Operations: Perl can automate database tasks like data insertion, retrieval, updates, and database maintenance.
-
-11. Network Automation: Perl can automate network-related tasks, such as network device configuration, network monitoring, and traffic analysis.
-
-12. Server and Service Monitoring: Perl can be used to monitor server health, check service status, and alert administrators in case of issues.
-
-13. Email Automation: Perl can automate email processing tasks, such as reading, sending, filtering, and parsing emails.
-
-14. Data Processing and Transformation: Perl can automate data processing tasks, like data cleansing, transformation, and formatting.
-
-15. Automated Testing: Perl can be used for automating software testing, including unit tests, integration tests, and regression tests.
-
-16. Image Processing: Perl can automate image processing tasks, such as resizing, cropping, watermarking, and converting image formats.
-
-17. Data Migration: Perl can automate data migration between different systems or formats, ensuring smooth transitions without data loss.
-
-18. Report Distribution: Perl can automate report generation and distribution, sending reports via email or uploading them to cloud storage.
-
-19. Social Media Automation: Perl can automate social media interactions, such as posting updates, monitoring mentions, and analyzing engagement.
-
-20. Internet of Things (IoT) Automation: Perl can be used in IoT applications for collecting sensor data, processing it, and controlling connected devices.
-
-Perl's flexibility, ease of use, and extensive library support make it a popular choice for various scripting and automation tasks across different domains and industries.
-
-
-Merge_dirs_v2.pl:
-
-
-Here's a detailed step-by-step explanation of the Perl program:
-
-1. Shebang Line and Pragmas:
-
-#!/usr/bin/perl: Tells the operating system to use Perl to execute the script.
-use strict;: Enforces stricter variable and code syntax for better error checking.
-use warnings;: Enables warnings to catch potential issues during execution.
-2. Input and Validation:
-
-Prompts the user to enter the source and destination directory names.
-Stores the input in variables $source_dir and $destination_dir.
-Uses -d to check if both directories exist and terminates with an error message if either is missing.
-3. Initialization:
-
-Sets $moved_files to 0 to count the number of files moved.
-Sets $total_data_transferred to 0 to track the total data moved.
-4. Processing Files:
-
-Opens the source directory using opendir and assigns a directory handle $source_dh.
-Loops through each filename in the source directory using readdir.
-Skips the current and parent directory entries (. and ..).
-Constructs full file paths for the source and destination files.
-Skips files if they already exist in the destination to avoid overwriting.
-Checks if the source file is a symbolic link (-l) and skips it, printing a message.
-For regular files:
-Gets the file size using -s.
-Moves the file using rename or terminates with an error if unsuccessful.
-Increments $moved_files and $total_data_transferred.
-Prints a message indicating the successful move and file size.
-Closes the source directory handle using closedir.
-5. Telemetry and Optional Removal:
-
-Prints a summary of the merged files and total data transferred.
-Optionally removes the source directory if it's empty (by uncommenting the rmdir line).
-Prints a message indicating completion.
+> A comprehensive collection of AI-generated Perl utilities for text processing, data analysis, file management, and system automation.
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+[![Perl Version](https://img.shields.io/badge/perl-v5.34%2B-blue)](https://www.perl.org/)
+
+## 📋 Table of Contents
+
+- [Overview](#overview)
+- [Repository Structure](#repository-structure)
+- [Functional Categories](#functional-categories)
+- [Key Utilities](#key-utilities)
+- [Technology Stack](#technology-stack)
+- [Installation & Usage](#installation--usage)
+- [Perl Use Cases](#perl-use-cases)
+- [Contributing](#contributing)
+
+---
+
+## Overview
+
+**Perl_GPT** is a curated collection of 24+ Perl scripts and utilities, organized into specialized modules for various data processing, file management, and automation tasks. The repository demonstrates Perl's strengths in text processing while incorporating modern workflows for machine learning, NLP, and data science.
+
+### Key Features
+
+- 🔍 **Text Processing & Analysis** - Entropy calculations, duplicate removal, pattern matching
+- 📊 **Data Format Conversion** - JSONL conversion for ML pipelines, metadata extraction
+- 📁 **File Management** - Directory merging, file scanning, safe deletion utilities
+- 🔬 **Academic Tools** - DOI/arXiv metadata extraction
+- 🌐 **Network Utilities** - IP extraction, DNS query preparation
+- 🤖 **AI Integration** - ShellGenie polymorphic parser with LM support
+
+---
+
+## Repository Structure
+
+```mermaid
+graph TB
+    Root[Perl_GPT Repository]
+
+    Root --> Utils[Root Utilities<br/>17 Scripts]
+    Root --> Dirs[Specialized Directories<br/>12 Modules]
+
+    Dirs --> EC[entropy_cleaner<br/>File Quality]
+    Dirs --> EN[entropy_nlp<br/>Statistical Analysis]
+    Dirs --> AG[arxiv_doi_grabber<br/>Metadata Extraction]
+    Dirs --> JC[jsonl_convertor<br/>Format Conversion]
+    Dirs --> FT[find_text<br/>File Discovery]
+    Dirs --> CD[clean_dupent<br/>Duplicate Removal]
+    Dirs --> SI[sshlog_ips<br/>IP Extraction]
+    Dirs --> DG[dig<br/>DNS Utilities]
+    Dirs --> IE[inference_engine_check<br/>LM Validation]
+    Dirs --> SG[shellgenie-polyparse<br/>Command Parser]
+
+    Utils --> FS[File Scanners<br/>5 variants]
+    Utils --> FM[File Management<br/>merge, delete, size]
+    Utils --> TP[Text Processing<br/>concat, clean, mutate]
+
+    style Root fill:#e1f5ff
+    style Dirs fill:#fff4e1
+    style Utils fill:#e8f5e9
+    style EC fill:#f3e5f5
+    style EN fill:#f3e5f5
+    style AG fill:#ffe0b2
+    style JC fill:#ffe0b2
+    style SG fill:#ffccbc
+```
+
+### Directory Organization
+
+```mermaid
+graph LR
+    A[Perl_GPT] --> B[entropy_cleaner]
+    A --> C[entropy_nlp]
+    A --> D[arxiv_doi_grabber]
+    A --> E[jsonl_convertor]
+    A --> F[find_text]
+    A --> G[clean_dupent]
+    A --> H[sshlog_ips]
+    A --> I[dig]
+    A --> J[inference_engine_check]
+    A --> K[shellgenie-polyparse]
+
+    B --> B1[clean_by_entropy.pl]
+    B --> B2[readme.md]
+
+    C --> C1[ShannJensKL_EntropyCalc.pl]
+    C --> C2[entrop_calc_deepseekcoder.pl]
+    C --> C3[entrop_calc_errchk.pl]
+
+    D --> D1[metadata_extractor.pl]
+    D --> D2[readme.md]
+    D --> D3[best_practices.md]
+
+    K --> K1[gpt40/]
+    K --> K2[gemma9B8q-gpt40/]
+
+    style A fill:#4CAF50,color:#fff
+    style B fill:#9C27B0,color:#fff
+    style C fill:#9C27B0,color:#fff
+    style D fill:#FF9800,color:#fff
+    style E fill:#FF9800,color:#fff
+    style K fill:#F44336,color:#fff
+```
+
+---
+
+## Functional Categories
+
+```mermaid
+mindmap
+  root((Perl_GPT<br/>Utilities))
+    Text Processing
+      Entropy Analysis
+      Pattern Matching
+      Duplicate Removal
+      HTML Cleaning
+      Whitespace Normalization
+    Data Conversion
+      JSONL Format
+      URL Mutation
+      Metadata Extraction
+      Tokenization
+    File Management
+      Directory Merging
+      File Scanning
+      Safe Deletion
+      Size Analysis
+      Recursive Search
+    Data Science
+      Shannon Entropy
+      KL Divergence
+      JS Divergence
+      NLP Utilities
+      Dataset Cleaning
+    Network & System
+      IP Extraction
+      DNS Query Prep
+      SSH Log Analysis
+      Bash History Cleaning
+    Academic Research
+      DOI Extraction
+      arXiv Metadata
+      Citation Management
+    AI Integration
+      LM Engine Check
+      ShellGenie Parser
+      Command Automation
+```
+
+---
+
+## Key Utilities
+
+### Data Quality & Cleaning
+
+```mermaid
+flowchart LR
+    A[Input Directory] --> B{entropy_cleaner}
+    B --> C[Calculate Shannon Entropy]
+    C --> D{Entropy < 3.5?}
+    D -->|Yes| E[Mark for Deletion]
+    D -->|No| F[Keep File]
+    E --> G[User Confirmation]
+    G -->|Confirm| H[Delete Low-Quality Files]
+    G -->|Cancel| I[Abort Operation]
+    F --> J[Statistics Report]
+    H --> J
+
+    style B fill:#9C27B0,color:#fff
+    style C fill:#673AB7,color:#fff
+    style H fill:#F44336,color:#fff
+    style J fill:#4CAF50,color:#fff
+```
+
+**entropy_cleaner** - Removes low-entropy (repetitive/redundant) files using Shannon entropy calculations.
+
+---
+
+### Metadata Extraction Pipeline
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant S as metadata_extractor.pl
+    participant F as File System
+    participant A as arXiv API
+    participant D as DOI Service
+    participant J as JSON Output
+
+    U->>S: Provide directory path
+    S->>F: Scan for .txt files
+    F-->>S: Return file list
+
+    loop For each file
+        S->>F: Read file content
+        S->>S: Extract DOI/arXiv IDs (regex)
+
+        alt Has arXiv ID
+            S->>A: Fetch metadata
+            A-->>S: Return arXiv data
+        end
+
+        alt Has DOI
+            S->>D: Fetch metadata
+            D-->>S: Return DOI data
+        end
+
+        S->>J: Save *_extracted.json
+    end
+
+    S->>U: Processing complete + statistics
+
+    style S fill:#FF9800,color:#fff
+    style J fill:#4CAF50,color:#fff
+```
+
+**arxiv_doi_grabber** - Extracts academic metadata from documents and fetches detailed information from DOI/arXiv APIs.
+
+---
+
+### JSONL Conversion Workflow
+
+```mermaid
+flowchart TB
+    A[Start: txt_jsonl_convert.pl] --> B[Prompt for directory]
+    B --> C{Recursive scan?}
+    C -->|Yes| D[Find all .txt recursively]
+    C -->|No| E[Find .txt in current dir]
+    D --> F[Initialize JSONL output]
+    E --> F
+    F --> G[Process files sequentially]
+
+    G --> H{File size OK?}
+    H -->|Yes| I[Extract metadata]
+    H -->|No| J[Skip file]
+
+    I --> K[Create JSONL record]
+    K --> L{Output > 2GB?}
+    L -->|Yes| M[Rotate to new file]
+    L -->|No| N[Append to current]
+
+    M --> O[Continue processing]
+    N --> O
+    J --> O
+
+    O --> P{More files?}
+    P -->|Yes| G
+    P -->|No| Q[Report statistics]
+    Q --> R[End]
+
+    style A fill:#4CAF50,color:#fff
+    style K fill:#FF9800,color:#fff
+    style M fill:#F44336,color:#fff
+    style Q fill:#2196F3,color:#fff
+```
+
+**jsonl_convertor** - Converts text files to JSONL format with metadata for machine learning pipelines.
+
+---
+
+### Entropy Analysis Methods
+
+```mermaid
+graph TB
+    subgraph "Statistical Measures"
+        A[Input Text File] --> B[Character Frequency Analysis]
+        B --> C1[Shannon Entropy]
+        B --> C2[Kullback-Leibler Divergence]
+        B --> C3[Jensen-Shannon Divergence]
+
+        C1 --> D1["H(X) = -Σ p(x) log₂ p(x)"]
+        C2 --> D2["KL(P||Q) = Σ P(i) log(P(i)/Q(i))"]
+        C3 --> D3["JS(P||Q) = ½[KL(P||M) + KL(Q||M)]"]
+
+        D1 --> E[Entropy Score]
+        D2 --> E
+        D3 --> E
+
+        E --> F{Threshold Check}
+        F -->|High Entropy| G[Quality Content]
+        F -->|Low Entropy| H[Repetitive/Junk]
+    end
+
+    style C1 fill:#9C27B0,color:#fff
+    style C2 fill:#673AB7,color:#fff
+    style C3 fill:#512DA8,color:#fff
+    style G fill:#4CAF50,color:#fff
+    style H fill:#F44336,color:#fff
+```
+
+**entropy_nlp** - Advanced statistical analysis using Shannon entropy, KL divergence, and JS divergence for NLP tasks.
+
+---
+
+### ShellGenie Architecture
+
+```mermaid
+flowchart LR
+    A[User Natural Language Input] --> B[Language Model<br/>GPT-4 / Gemma 9B]
+    B --> C[Command Intent Parser]
+    C --> D[Polymorphic Perl Parser]
+    D --> E{Command Pattern<br/>Registry}
+
+    E --> F1[File Operations]
+    E --> F2[System Admin]
+    E --> F3[Network Tasks]
+    E --> F4[Custom Commands]
+
+    F1 --> G[Parameter Validation]
+    F2 --> G
+    F3 --> G
+    F4 --> G
+
+    G --> H[Bash Execution Engine]
+    H --> I[Output Handler]
+    I --> J[User Response]
+
+    style B fill:#4CAF50,color:#fff
+    style D fill:#FF9800,color:#fff
+    style E fill:#2196F3,color:#fff
+    style H fill:#F44336,color:#fff
+```
+
+**shellgenie-polyparse** - Advanced polymorphic command parser integrating AI language models for natural language shell automation.
+
+---
+
+## Technology Stack
+
+```mermaid
+graph TB
+    subgraph "Core Language"
+        A[Perl 5.34+]
+    end
+
+    subgraph "Standard Modules"
+        B1[strict/warnings]
+        B2[File::Find]
+        B3[File::Basename]
+        B4[Time::Piece]
+        B5[JSON]
+        B6[LWP::UserAgent]
+        B7[Term::ANSIColor]
+        B8[Data::Dumper]
+    end
+
+    subgraph "Specialized Modules"
+        C1[Math::BaseCalc]
+        C2[Data::UUID]
+        C3[Digest::MD5]
+        C4[List::Util]
+    end
+
+    subgraph "External Tools"
+        D1[Bash/Shell]
+        D2[Docker]
+        D3[Python 3.x]
+    end
+
+    subgraph "AI/ML Integration"
+        E1[GPT-4 API]
+        E2[Gemma 9B]
+        E3[DeepSeek Coder]
+    end
+
+    A --> B1
+    A --> B2
+    A --> B3
+    A --> B4
+    A --> B5
+    A --> B6
+    A --> B7
+    A --> B8
+    A --> C1
+    A --> C2
+    A --> C3
+    A --> C4
+
+    style A fill:#4CAF50,color:#fff
+    style B5 fill:#FF9800,color:#fff
+    style E1 fill:#2196F3,color:#fff
+    style E2 fill:#2196F3,color:#fff
+```
+
+---
+
+## Installation & Usage
+
+### Prerequisites
+
+```bash
+# Ensure Perl 5.34+ is installed
+perl --version
+
+# Install required CPAN modules
+cpan install File::Find JSON LWP::UserAgent Term::ANSIColor Data::UUID
+```
+
+### Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/danindiana/Perl_GPT.git
+cd Perl_GPT
+
+# Example: Clean directory by entropy
+cd entropy_cleaner
+perl clean_by_entropy.pl
+
+# Example: Convert text to JSONL
+cd jsonl_convertor
+perl txt_jsonl_convert.pl
+
+# Example: Extract academic metadata
+cd arxiv_doi_grabber
+perl metadata_extractor.pl
+```
+
+### Common Workflows
+
+```mermaid
+flowchart LR
+    A[Select Task] --> B{Task Type?}
+
+    B -->|Data Cleaning| C1[entropy_cleaner]
+    B -->|Format Conversion| C2[jsonl_convertor]
+    B -->|Metadata Extraction| C3[arxiv_doi_grabber]
+    B -->|File Management| C4[File Scanners/Merge]
+    B -->|Network Analysis| C5[sshlog_ips/dig]
+
+    C1 --> D[Run Script]
+    C2 --> D
+    C3 --> D
+    C4 --> D
+    C5 --> D
+
+    D --> E[Review Output]
+    E --> F{Successful?}
+    F -->|Yes| G[Complete]
+    F -->|No| H[Check Logs]
+
+    style A fill:#4CAF50,color:#fff
+    style D fill:#FF9800,color:#fff
+    style G fill:#2196F3,color:#fff
+```
+
+---
+
+## Perl Use Cases
+
+Perl is a versatile programming language that excels in numerous domains:
+
+### Core Strengths
+
+#### 1. Text Processing Excellence
+
+- **Pattern Matching** - Advanced regex support for complex text search
+- **Text Parsing** - Extract structured data from logs, configs, and documents
+- **Text Transformation** - Format conversion and data normalization
+- **String Manipulation** - Comprehensive built-in functions
+- **Text Filtering** - Conditional data extraction
+- **Report Generation** - Formatted output creation
+
+#### 2. Data Processing & Analysis
+
+- **Data Extraction** - Mining information from large datasets
+- **Data Cleaning** - Removing duplicates, fixing formatting
+- **Data Validation** - Ensuring data integrity
+- **Data Transformation** - Converting between formats
+- **Statistical Analysis** - Entropy calculations, frequency analysis
+
+#### 3. System Administration
+
+- **File Operations** - Automated copying, moving, organizing
+- **Log Analysis** - Parsing system logs for insights
+- **System Monitoring** - Health checks and alerting
+- **Configuration Management** - Automated config updates
+- **Task Scheduling** - Cron-based automation
+- **Backup Management** - Automated backup routines
+
+#### 4. Web & Network Operations
+
+- **Web Scraping** - HTML parsing and data extraction
+- **API Integration** - REST/SOAP client implementations
+- **Network Utilities** - Socket programming, protocol handling
+- **Data Mining** - Extracting insights from web sources
+
+#### 5. Database Operations
+
+- **Database Interactions** - DBI module for SQL operations
+- **Data Migration** - Moving data between systems
+- **ETL Pipelines** - Extract, Transform, Load workflows
+
+#### 6. Scientific Computing
+
+- **Bioinformatics** - Genomic sequence analysis
+- **Natural Language Processing** - Text tokenization, analysis
+- **Academic Research** - Metadata extraction, citation management
+
+### Text Processing Capabilities
+
+Perl's regex engine and text handling make it ideal for:
+
+1. **Pattern Matching** - Identify complex patterns in text
+2. **Text Parsing** - Extract structured data from unstructured sources
+3. **Text Transformation** - Reformat and normalize data
+4. **Data Extraction** - Mine specific information from large files
+5. **Text Cleaning** - Remove unwanted characters and normalize whitespace
+6. **String Manipulation** - Concat, split, trim, case conversion
+7. **Text Comparison** - Diff operations and change detection
+8. **Text Substitution** - Find-and-replace with regex
+9. **Report Generation** - Create formatted output
+10. **Log File Analysis** - Extract metrics and statistics
+11. **NLP Tasks** - Tokenization, stemming, POS tagging
+12. **Text Validation** - Ensure data meets specifications
+
+### Data Scraping Excellence
+
+Perl excels at web and data scraping:
+
+1. **Web Page Scraping** - HTML parsing and extraction
+2. **API Scraping** - JSON/XML data retrieval
+3. **Social Media** - Trend analysis and user data
+4. **E-commerce** - Price monitoring and product data
+5. **Academic Sources** - Research paper metadata
+6. **Government Data** - Public records and statistics
+7. **News Articles** - Content aggregation
+8. **Real Estate** - Property listing data
+9. **Financial Data** - Stock prices, market data
+10. **Weather Data** - Forecasts and historical data
+
+### Automation & Scripting
+
+Perl's concise syntax enables powerful automation:
+
+1. **File & Directory Operations** - Bulk file management
+2. **Data Backup & Archiving** - Automated backup workflows
+3. **Log Analysis** - Real-time monitoring and alerting
+4. **Configuration Management** - Config deployment
+5. **Software Deployment** - Package installation automation
+6. **Email Automation** - Automated email processing
+7. **Network Automation** - Device configuration
+8. **Image Processing** - Batch image operations
+9. **Data Migration** - System-to-system transfers
+10. **Testing Automation** - Unit and integration tests
+
+---
+
+## Project Structure Details
+
+### Root-Level Utilities (17 Files)
+
+| Script | Purpose | Input | Output |
+|--------|---------|-------|--------|
+| `file_scanner.pl` | Keyword-based file search | Keywords, directory | Matched files list |
+| `file_scannerv2.pl` | Enhanced file scanner | Keywords, directory | Improved results |
+| `file_scan_recursdir.pl` | Recursive scanning | Directory path | Recursive file list |
+| `file_size_scanner.pl` | File size analysis | Directory path | Size statistics |
+| `merge_dirs_v2.pl` | Directory merging | Source/dest paths | Merged directory |
+| `concat_chunks.pl` | Text concatenation | Directory, chunk size | Chunked files |
+| `remove_repeats_html.pl` | HTML duplicate removal | HTML file | Cleaned HTML |
+| `remove_whitespace.pl` | Whitespace cleanup | Text file | Normalized text |
+| `perl_mutator.pl` | URL to UUID conversion | URL file | UUID output |
+| `clean_bash_history.pl` | Bash history sanitization | History file | Cleaned history |
+| `file_deletion_tool.pl` | Safe file deletion | File paths | Confirmation + delete |
+
+### Specialized Modules
+
+#### entropy_cleaner/
+- **Purpose**: File quality assessment via entropy
+- **Key Script**: `clean_by_entropy.pl`
+- **Threshold**: 3.5 (configurable)
+- **Output**: Deletion confirmation + statistics
+
+#### entropy_nlp/
+- **Purpose**: Advanced statistical entropy analysis
+- **Methods**: Shannon, KL Divergence, JS Divergence
+- **Scripts**:
+  - `ShannJensKL_EntropyCalc.pl` - Full suite
+  - `entrop_calc_deepseekcoder.pl` - DeepSeek optimized
+  - `entrop_calc_errchk.pl` - Error-checked version
+
+#### arxiv_doi_grabber/
+- **Purpose**: Academic metadata extraction
+- **Key Script**: `metadata_extractor.pl`
+- **APIs**: arXiv, DOI resolution services
+- **Output**: JSON metadata files
+
+#### jsonl_convertor/
+- **Purpose**: ML pipeline data preparation
+- **Key Script**: `txt_jsonl_convert.pl`
+- **Features**: Auto-rotation at 2GB, metadata inclusion
+- **Format**: JSONL (JSON Lines)
+
+#### shellgenie-polyparse/
+- **Purpose**: AI-powered shell automation
+- **Architecture**: Polymorphic command parser
+- **LM Support**: GPT-4, Gemma 9B
+- **Deployment**: Docker containerization
+
+---
+
+## Contributing
+
+Contributions are welcome! This repository showcases AI-generated Perl utilities. When contributing:
+
+1. Follow existing naming conventions (`script_name.pl`, versioning with `v2`, `v3`)
+2. Include comprehensive documentation in each directory
+3. Add error handling and user confirmations for destructive operations
+4. Test scripts thoroughly before submitting
+5. Update README.md with new utilities
+
+### Code Style
+
+- Use `strict` and `warnings` pragmas
+- Include clear comments explaining logic
+- Provide usage examples in script headers
+- Handle errors gracefully with informative messages
+
+---
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## Acknowledgments
+
+- Generated with assistance from GPT-4, DeepSeek Coder, and other AI models
+- Built on Perl's robust text processing foundation
+- Community CPAN modules for extended functionality
+
+---
+
+## Quick Reference
+
+### Most Used Scripts
+
+```bash
+# Clean low-quality files
+perl entropy_cleaner/clean_by_entropy.pl
+
+# Convert to JSONL for ML
+perl jsonl_convertor/txt_jsonl_convert.pl
+
+# Extract academic metadata
+perl arxiv_doi_grabber/metadata_extractor.pl
+
+# Merge directories safely
+perl merge_dirs_v2.pl
+
+# Find all text files
+perl find_text/find_text_files.pl
+
+# Extract IPs from logs
+perl sshlog_ips/ip_extractor.pl
+```
+
+### Dependency Installation
+
+```bash
+# All required CPAN modules
+cpan install File::Find File::Basename File::Spec Time::Piece \
+             JSON LWP::UserAgent Term::ANSIColor Data::Dumper \
+             List::Util Math::BaseCalc Data::UUID Digest::MD5
+```
+
+---
+
+**Maintained by**: [danindiana](https://github.com/danindiana)
+**Repository**: [Perl_GPT](https://github.com/danindiana/Perl_GPT)
+**Last Updated**: November 2025
