@@ -1,117 +1,290 @@
-### Program Description
-
-This Perl script functions as a metadata extractor for DOI and arXiv links found within text files. It uses regular expressions to detect these links, fetches metadata from the respective websites, and stores the extracted information (such as titles) in separate JSON files. Here’s a step-by-step breakdown of how the program works:
-
-1. **Initialize HTTP User Agent**: The script uses `LWP::UserAgent` to perform HTTP requests to fetch metadata from DOI and arXiv websites.
-2. **Directory Scanning**: The program scans a specified directory (or the current directory by default) for text files (`.txt`).
-3. **Extract Metadata**: Within each text file, it searches for DOI and arXiv links using regular expressions. For each found link, it:
-   - Performs an HTTP GET request to retrieve metadata (e.g., title).
-   - Extracts the title and other relevant information from the response.
-4. **Store Metadata**: The metadata for each text file is saved to a corresponding JSON file in the same directory as the text file. For example, for `file.txt`, the output will be `file_extracted.json`.
-5. **User Input**: After scanning the directory for text files, the script allows the user to select which files they want to process based on a list displayed to the console.
-6. **Generate Log**: The program logs all found text files to a file that is named based on the parent directory and a timestamp. This file lists the text files that were found during the scan.
-7. **Error Handling**: The script includes basic error handling, such as dealing with invalid HTTP responses and unexpected content types.
-
-### Suggested File Name
-A fitting name for this file could be:
-
-```plaintext
-metadata_extractor.pl
-```
-
-### Suggested `README.md`
-
-```markdown
 # Metadata Extractor for DOI and ArXiv Links
+
+[![CI Status](https://github.com/danindiana/Perl_GPT/actions/workflows/arxiv-doi-grabber-ci.yml/badge.svg)](https://github.com/danindiana/Perl_GPT/actions/workflows/arxiv-doi-grabber-ci.yml)
 
 `metadata_extractor.pl` is a Perl script designed to extract metadata (such as titles) from DOI and arXiv links present in text files. The metadata is fetched from their respective websites and stored in JSON files for easy reference.
 
+## Quick Start
+
+```bash
+# Automated installation (recommended)
+./install_deps.sh
+
+# Run smoke test
+./smoke_test.pl
+
+# Extract metadata
+./metadata_extractor.pl --dir=./test/fixtures --output=./temp
+```
+
 ## Features
 
-- Scans a directory for `.txt` files.
-- Extracts DOI and arXiv links from the content of the text files.
-- Fetches metadata from the respective websites.
-- Saves metadata in individual JSON files corresponding to the input text files.
-- Logs the list of processed text files for reference.
+- ✓ Scans directories for `.txt` files
+- ✓ Extracts DOI and arXiv links from file content
+- ✓ Fetches metadata from respective websites
+- ✓ Saves metadata in individual JSON files
+- ✓ Logs processed files for reference
+- ✓ Interactive file selection
+- ✓ Comprehensive error handling
+- ✓ Automated dependency installation
+- ✓ Full CI/CD pipeline with GitHub Actions
+
+## How It Works
+
+1. **Initialize HTTP User Agent**: Uses `LWP::UserAgent` to perform HTTP requests to fetch metadata from DOI and arXiv websites
+2. **Directory Scanning**: Scans a specified directory (or current directory by default) for text files (`.txt`)
+3. **Extract Metadata**: For each DOI/arXiv link found:
+   - Performs an HTTP GET request to retrieve metadata
+   - Extracts the title and other relevant information
+4. **Store Metadata**: Saves metadata to corresponding JSON files (`file.txt` → `file_extracted.json`)
+5. **User Input**: Allows interactive selection of files to process
+6. **Generate Log**: Creates a timestamped log file listing all found text files
 
 ## Requirements
 
-- Perl (version 5.10 or higher)
-- The following Perl modules:
+- **Perl**: Version 5.10 or higher
+- **Perl Modules**:
   - `LWP::UserAgent` (for HTTP requests)
+  - `LWP::Protocol::https` (for HTTPS support)
   - `JSON` (for JSON parsing and output)
-  - `File::Find` (for directory traversal)
-  - `Digest::MD5` (for generating hash-based filenames)
-  - `Time::HiRes` (for high-resolution time calculations)
-
-Install the required modules using CPAN if needed:
-
-```bash
-cpan LWP::UserAgent JSON File::Find Digest::MD5 Time::HiRes
-```
+  - `File::Find` (core - for directory traversal)
+  - `Digest::MD5` (core - for hash-based filenames)
+  - `Time::HiRes` (core - for high-resolution time)
 
 ## Installation
 
-Clone the repository to your local machine:
+### Automated Installation (Recommended)
 
 ```bash
-git clone https://github.com/yourusername/metadata_extractor.git
-cd metadata_extractor
+# Run the installation script
+./install_deps.sh
 ```
 
-Ensure the script is executable:
+The script will:
+1. Check Perl version compatibility
+2. Install `cpanm` if needed
+3. Install all required dependencies
+4. Verify installation
+5. Check script syntax
+
+### Manual Installation
 
 ```bash
-chmod +x metadata_extractor.pl
+# Install cpanm if not available
+curl -L https://cpanmin.us | perl - App::cpanminus
+
+# Install dependencies from cpanfile
+cpanm --installdeps .
+
+# Or install manually
+cpanm LWP::UserAgent LWP::Protocol::https JSON
 ```
+
+### System Package Installation
+
+**Debian/Ubuntu:**
+```bash
+sudo apt-get install libwww-perl libjson-perl
+```
+
+**RHEL/CentOS/Fedora:**
+```bash
+sudo yum install perl-libwww-perl perl-JSON
+```
+
+For detailed bare metal setup instructions, see **[BARE_METAL_SETUP.md](BARE_METAL_SETUP.md)**.
 
 ## Usage
 
 ### Basic Syntax
 
 ```bash
-./metadata_extractor.pl --dir=path/to/your/text/files --output=path/to/save/log
+./metadata_extractor.pl --dir=<directory> --output=<output_directory>
 ```
 
 ### Options
 
-- `--dir=DIR`: Directory to scan for text files (default: current directory).
-- `--output=DIR`: Directory to save the log file that lists the found text files (default: current directory).
+- `--dir=DIR`: Directory to scan for text files (default: current directory)
+- `--output=DIR`: Directory to save the log file (default: current directory)
+- `--help`: Display help information
 
-### Example
+### Examples
 
-To scan the `texts` directory for files and store the log file in the `logs` directory:
-
+**Process test fixtures:**
 ```bash
-./metadata_extractor.pl --dir=./texts --output=./logs
+./metadata_extractor.pl --dir=./test/fixtures --output=./temp
 ```
 
-After scanning, the script will prompt you to select which files you want to process. You can specify ranges (e.g., `1-3, 5, 7`).
+**Process current directory:**
+```bash
+./metadata_extractor.pl
+```
+
+**Automated file selection (first file):**
+```bash
+echo "0" | ./metadata_extractor.pl --dir=./test/fixtures
+```
+
+**View help:**
+```bash
+./metadata_extractor.pl --help
+```
 
 ## Output
 
-The script will produce the following types of output:
+### Metadata JSON Files
 
-1. **Metadata JSON Files**: For each processed text file, a corresponding JSON file containing the extracted DOI/arXiv metadata will be created. For example:
-   - `example.txt` → `example_extracted.json`
-   
-2. **Log File**: A log file listing all found text files is generated in the output directory. The filename will follow this format: `<directory_name>_<timestamp>.txt`.
+For each processed text file, a JSON file is created:
+- Input: `example.txt`
+- Output: `example_extracted.json`
+
+**JSON Structure:**
+```json
+{
+  "dois": [
+    {
+      "doi": "https://dx.doi.org/10.1038/nature12373",
+      "title": "Article Title Here"
+    }
+  ],
+  "arxivs": [
+    {
+      "arxiv": "https://arxiv.org/abs/1706.03762",
+      "title": "Paper Title Here"
+    }
+  ]
+}
+```
+
+### Log File
+
+A timestamped log file listing all found text files:
+- Format: `<directory_name>_<md5_hash>.txt`
+- Location: Specified output directory
+
+## Testing
+
+### Run Smoke Tests
+
+```bash
+./smoke_test.pl
+```
+
+The smoke test validates:
+- ✓ Perl version compatibility
+- ✓ Required module availability
+- ✓ Script syntax validation
+- ✓ Basic functionality
+- ✓ File discovery
+- ✓ Output generation
+
+### Test with Fixtures
+
+Sample test files are provided in `test/fixtures/`:
+- `sample_doi.txt` - Contains DOI links
+- `sample_arxiv.txt` - Contains arXiv links
+- `mixed_links.txt` - Contains both types
+
+```bash
+./metadata_extractor.pl --dir=./test/fixtures --output=./temp
+```
+
+## CI/CD Pipeline
+
+This project includes a comprehensive GitHub Actions CI/CD pipeline that runs:
+
+- **Smoke Tests**: Across multiple Perl versions (5.30-5.38) and OS (Ubuntu, macOS)
+- **Syntax Checks**: Perl syntax validation and linting
+- **Bare Metal Simulation**: Tests automated installation process
+- **Documentation Validation**: Verifies all required files exist
+
+See **[CI_CD_REVIEW.md](CI_CD_REVIEW.md)** for detailed pipeline documentation.
+
+## Documentation
+
+- **[BARE_METAL_SETUP.md](BARE_METAL_SETUP.md)** - Detailed bare metal installation guide
+- **[CI_CD_REVIEW.md](CI_CD_REVIEW.md)** - Comprehensive CI/CD pipeline review and recommendations
+- **[best_practices.md](best_practices.md)** - Best practices guide
+- **[test/fixtures/README.md](test/fixtures/README.md)** - Test fixtures documentation
 
 ## Error Handling
 
-The script includes error handling for:
-- Invalid HTTP responses (e.g., 404 errors).
-- Unexpected content types from the DOI and arXiv metadata fetches.
-- User input validation for file selection.
+The script includes comprehensive error handling for:
+- ✓ Invalid HTTP responses (404, timeouts, etc.)
+- ✓ Unexpected content types from DOI/arXiv APIs
+- ✓ User input validation for file selection
+- ✓ File I/O errors
+- ✓ JSON parsing errors
+
+## Project Structure
+
+```
+arxiv_doi_grabber/
+├── metadata_extractor.pl      # Main script
+├── smoke_test.pl              # Smoke test suite
+├── install_deps.sh            # Automated dependency installer
+├── cpanfile                   # Perl dependency manifest
+├── readme.md                  # This file
+├── BARE_METAL_SETUP.md        # Bare metal setup guide
+├── CI_CD_REVIEW.md            # CI/CD pipeline documentation
+├── best_practices.md          # Best practices
+├── test/
+│   └── fixtures/              # Test data files
+│       ├── sample_doi.txt
+│       ├── sample_arxiv.txt
+│       ├── mixed_links.txt
+│       └── README.md
+└── temp/                      # Temporary output directory
+```
+
+## Troubleshooting
+
+**Issue**: "LWP::UserAgent not found"
+```bash
+cpanm LWP::UserAgent LWP::Protocol::https
+```
+
+**Issue**: "Permission denied" when installing modules
+```bash
+# Install locally (no root required)
+cpanm --local-lib=~/perl5 LWP::UserAgent JSON
+echo 'eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)' >> ~/.bashrc
+```
+
+**Issue**: SSL certificate errors
+```bash
+sudo apt-get install ca-certificates  # Debian/Ubuntu
+cpanm Mozilla::CA                     # Or install Mozilla CA bundle
+```
+
+For more troubleshooting, see **[BARE_METAL_SETUP.md](BARE_METAL_SETUP.md#troubleshooting)**.
+
+## Contributing
+
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run smoke tests (`./smoke_test.pl`)
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
+
+The CI/CD pipeline will automatically validate your changes.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contributing
+## Acknowledgments
 
-Contributions are welcome! Please fork the repository and create a pull request with your improvements.
+- DOI metadata from [dx.doi.org](https://dx.doi.org)
+- arXiv metadata from [arxiv.org](https://arxiv.org)
+- Built with Perl and CPAN modules
 
-```
+## Support
 
-This `README.md` provides a clear understanding of how the script works, how to install and run it, and what to expect from the output.
+- **Issues**: [GitHub Issues](https://github.com/danindiana/Perl_GPT/issues)
+- **Documentation**: See docs listed above
+- **CI/CD Status**: Check the badge at the top of this README

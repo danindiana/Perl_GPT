@@ -1,0 +1,10 @@
+Sample DOI Test File
+====================
+
+This file contains sample DOI links for testing the metadata extractor.
+
+CRAWLING: https://dx.doi.org/10.1038/nature12373
+CRAWLING: https://dx.doi.org/10.1126/science.1242072
+CRAWLING: https://dx.doi.org/10.1093/bioinformatics/bts635
+
+End of test file.
