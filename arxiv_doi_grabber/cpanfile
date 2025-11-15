@@ -1,0 +1,33 @@
+# cpanfile for metadata_extractor.pl
+# Install dependencies with: cpanm --installdeps .
+
+requires 'perl', '5.010001';
+
+# Required modules for HTTP operations
+requires 'LWP::UserAgent', '>= 6.00';
+requires 'LWP::Protocol::https', '>= 6.00';  # For HTTPS support
+
+# Required for JSON parsing
+requires 'JSON', '>= 4.00';
+
+# Core modules (included for documentation, usually bundled with Perl)
+# These are listed here for clarity but typically don't need installation
+# requires 'File::Find';      # Core module
+# requires 'File::Basename';  # Core module
+# requires 'Getopt::Long';    # Core module
+# requires 'Pod::Usage';      # Core module
+# requires 'Digest::MD5';     # Core module
+# requires 'Time::HiRes';     # Core module
+
+# Development and testing dependencies
+on 'test' => sub {
+    requires 'Test::More', '>= 0.98';
+    requires 'Test::Exception', '>= 0.43';
+    requires 'Test::Deep', '>= 1.130';
+};
+
+on 'develop' => sub {
+    requires 'Perl::Critic', '>= 1.140';
+    requires 'Perl::Tidy', '>= 20220613';
+    requires 'Devel::Cover', '>= 1.36';
+};

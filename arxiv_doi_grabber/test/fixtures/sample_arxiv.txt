@@ -1,0 +1,10 @@
+Sample arXiv Test File
+======================
+
+This file contains sample arXiv links for testing the metadata extractor.
+
+CRAWLING: https://arxiv.org/abs/1706.03762
+CRAWLING: https://arxiv.org/abs/1409.0473
+CRAWLING: https://arxiv.org/abs/2103.14030
+
+End of test file.

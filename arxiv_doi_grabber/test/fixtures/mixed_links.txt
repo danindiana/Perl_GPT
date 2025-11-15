@@ -1,0 +1,18 @@
+Mixed Links Test File
+=====================
+
+This file contains both DOI and arXiv links for comprehensive testing.
+
+DOI Links:
+CRAWLING: https://dx.doi.org/10.1038/nature12373
+
+arXiv Links:
+CRAWLING: https://arxiv.org/abs/1706.03762
+
+Regular text that should be ignored.
+Some more text without any links.
+
+More DOI:
+CRAWLING: https://dx.doi.org/10.1126/science.1242072
+
+End of test file.

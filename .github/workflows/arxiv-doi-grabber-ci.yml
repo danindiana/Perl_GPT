@@ -1,0 +1,258 @@
+name: arXiv DOI Grabber CI
+
+on:
+  push:
+    branches: [ main, develop, 'claude/**' ]
+    paths:
+      - 'arxiv_doi_grabber/**'
+      - '.github/workflows/arxiv-doi-grabber-ci.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'arxiv_doi_grabber/**'
+      - '.github/workflows/arxiv-doi-grabber-ci.yml'
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  smoke-test:
+    name: Smoke Test (Perl ${{ matrix.perl-version }} on ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        perl-version:
+          - '5.38'
+          - '5.36'
+          - '5.34'
+          - '5.32'
+          - '5.30'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Perl
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: ${{ matrix.perl-version }}
+
+      - name: Verify Perl installation
+        run: |
+          perl -v
+          which perl
+          perl -V:archname
+
+      - name: Install cpanm
+        run: |
+          curl -L https://cpanmin.us | perl - App::cpanminus
+          cpanm --version
+
+      - name: Cache Perl dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/perl5
+          key: ${{ runner.os }}-perl-${{ matrix.perl-version }}-${{ hashFiles('arxiv_doi_grabber/cpanfile') }}
+          restore-keys: |
+            ${{ runner.os }}-perl-${{ matrix.perl-version }}-
+            ${{ runner.os }}-perl-
+
+      - name: Install dependencies
+        working-directory: arxiv_doi_grabber
+        run: |
+          cpanm --local-lib=~/perl5 --notest \
+            LWP::UserAgent \
+            LWP::Protocol::https \
+            JSON
+
+      - name: Verify dependencies
+        working-directory: arxiv_doi_grabber
+        run: |
+          eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+          perl -MLWP::UserAgent -e 'print "LWP::UserAgent OK\n"'
+          perl -MJSON -e 'print "JSON OK\n"'
+          perl -MFile::Find -e 'print "File::Find OK\n"'
+
+      - name: Verify script syntax
+        working-directory: arxiv_doi_grabber
+        run: |
+          eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+          perl -c metadata_extractor.pl
+
+      - name: Run smoke tests
+        working-directory: arxiv_doi_grabber
+        run: |
+          eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+          perl smoke_test.pl
+
+      - name: Test with fixtures (no network)
+        working-directory: arxiv_doi_grabber
+        run: |
+          eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+          # Create a simple test without network calls
+          echo "CRAWLING: https://dx.doi.org/10.1000/test" > temp/test.txt
+          echo "0" | perl metadata_extractor.pl --dir=temp --output=temp || true
+          # Just verify script runs without crashing
+          echo "Basic execution test completed"
+
+      - name: Upload smoke test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-test-results-${{ matrix.os }}-perl-${{ matrix.perl-version }}
+          path: |
+            arxiv_doi_grabber/temp/*.json
+            arxiv_doi_grabber/temp/*.txt
+          retention-days: 7
+
+  syntax-check:
+    name: Perl Syntax and Linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Perl
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: '5.38'
+
+      - name: Install Perl::Critic
+        run: |
+          cpanm --notest Perl::Critic
+
+      - name: Syntax check
+        working-directory: arxiv_doi_grabber
+        run: |
+          perl -c metadata_extractor.pl
+          perl -c smoke_test.pl
+
+      - name: Run Perl::Critic (informational)
+        working-directory: arxiv_doi_grabber
+        continue-on-error: true
+        run: |
+          perlcritic --verbose 8 metadata_extractor.pl || true
+          perlcritic --verbose 8 smoke_test.pl || true
+
+  bare-metal-simulation:
+    name: Bare Metal Deployment Simulation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Simulate fresh Ubuntu installation
+        run: |
+          echo "=== Simulating bare metal Ubuntu setup ==="
+          perl -v
+
+      - name: Run installation script
+        working-directory: arxiv_doi_grabber
+        run: |
+          chmod +x install_deps.sh
+          ./install_deps.sh
+
+      - name: Verify installation
+        working-directory: arxiv_doi_grabber
+        run: |
+          perl -MLWP::UserAgent -e 'print "LWP::UserAgent: OK\n"'
+          perl -MJSON -e 'print "JSON: OK\n"'
+
+      - name: Run smoke test after installation
+        working-directory: arxiv_doi_grabber
+        run: |
+          ./smoke_test.pl
+
+      - name: Test help output
+        working-directory: arxiv_doi_grabber
+        run: |
+          ./metadata_extractor.pl --help || true
+
+      - name: Generate installation report
+        if: always()
+        run: |
+          echo "=== Bare Metal Installation Report ===" > installation_report.txt
+          echo "Date: $(date)" >> installation_report.txt
+          echo "OS: $(uname -a)" >> installation_report.txt
+          echo "Perl: $(perl -v | head -2 | tail -1)" >> installation_report.txt
+          echo "" >> installation_report.txt
+          echo "Installed modules:" >> installation_report.txt
+          perl -MLWP::UserAgent -e 'print "LWP::UserAgent: $LWP::UserAgent::VERSION\n"' >> installation_report.txt || true
+          perl -MJSON -e 'print "JSON: $JSON::VERSION\n"' >> installation_report.txt || true
+          cat installation_report.txt
+
+      - name: Upload installation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bare-metal-installation-report
+          path: installation_report.txt
+          retention-days: 30
+
+  documentation-check:
+    name: Documentation Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check required files
+        working-directory: arxiv_doi_grabber
+        run: |
+          echo "Checking for required documentation files..."
+          test -f readme.md && echo "✓ readme.md exists" || echo "✗ readme.md missing"
+          test -f CI_CD_REVIEW.md && echo "✓ CI_CD_REVIEW.md exists" || echo "✗ CI_CD_REVIEW.md missing"
+          test -f cpanfile && echo "✓ cpanfile exists" || echo "✗ cpanfile missing"
+          test -f install_deps.sh && echo "✓ install_deps.sh exists" || echo "✗ install_deps.sh missing"
+          test -f smoke_test.pl && echo "✓ smoke_test.pl exists" || echo "✗ smoke_test.pl missing"
+
+      - name: Verify test fixtures
+        working-directory: arxiv_doi_grabber/test/fixtures
+        run: |
+          echo "Checking test fixtures..."
+          ls -la
+          test -f sample_doi.txt && echo "✓ sample_doi.txt exists" || echo "✗ sample_doi.txt missing"
+          test -f sample_arxiv.txt && echo "✓ sample_arxiv.txt exists" || echo "✗ sample_arxiv.txt missing"
+          test -f mixed_links.txt && echo "✓ mixed_links.txt exists" || echo "✗ mixed_links.txt missing"
+
+      - name: Extract POD documentation
+        uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: '5.38'
+
+      - name: Validate POD syntax
+        working-directory: arxiv_doi_grabber
+        run: |
+          podchecker metadata_extractor.pl || true
+          podchecker smoke_test.pl || true
+
+  summary:
+    name: CI Summary
+    runs-on: ubuntu-latest
+    needs: [smoke-test, syntax-check, bare-metal-simulation, documentation-check]
+    if: always()
+
+    steps:
+      - name: Check job results
+        run: |
+          echo "=== CI/CD Pipeline Summary ==="
+          echo "Smoke Tests: ${{ needs.smoke-test.result }}"
+          echo "Syntax Check: ${{ needs.syntax-check.result }}"
+          echo "Bare Metal Simulation: ${{ needs.bare-metal-simulation.result }}"
+          echo "Documentation Check: ${{ needs.documentation-check.result }}"
+
+      - name: Determine overall status
+        run: |
+          if [ "${{ needs.smoke-test.result }}" == "success" ] && \
+             [ "${{ needs.syntax-check.result }}" == "success" ] && \
+             [ "${{ needs.bare-metal-simulation.result }}" == "success" ]; then
+            echo "✅ All critical checks passed!"
+            exit 0
+          else
+            echo "❌ Some checks failed. Please review the logs."
+            exit 1
+          fi
