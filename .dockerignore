@@ -1,0 +1,80 @@
+# Git
+.git
+.gitignore
+.github
+
+# Documentation (built into image)
+*.md
+!README.md
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.backup
+temp/
+tmp/
+logs/
+*.old
+
+# Test and coverage files
+cover_db/
+nytprof/
+nytprof.out
+prove_state
+
+# Build artifacts
+blib/
+_build/
+Build
+Build.bat
+MYMETA.*
+META.*
+.build/
+pm_to_blib
+
+# Carton
+local/
+.carton/
+
+# Data directories (mount as volumes instead)
+data/
+output/
+
+# Development files
+TODO
+NOTES
+
+# OS specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Archives
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.rar
+*.7z
+
+# Compiled source
+*.o
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Perl specific
+.prove
+.perl-version
+perlcritic.vim

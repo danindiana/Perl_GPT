@@ -496,6 +496,94 @@ flowchart LR
 
 ---
 
+## Docker Deployment 🐳
+
+Run Perl_GPT in containerized environments for reproducible deployments.
+
+### Quick Docker Start
+
+```bash
+# Build and start with Docker Compose (recommended)
+docker-compose up -d perlgpt
+
+# Or build manually
+docker build -t perlgpt:latest .
+docker run -it --rm perlgpt:latest
+
+# Run specific utility
+docker-compose exec perlgpt perl tools/file_scanner.pl
+
+# Run examples
+docker-compose exec perlgpt perl examples/entropy_analysis.pl
+```
+
+### Available Docker Services
+
+| Service | Purpose | Command |
+|---------|---------|---------|
+| **perlgpt** | Main production service | `docker-compose up -d perlgpt` |
+| **perlgpt-dev** | Development environment | `docker-compose up -d perlgpt-dev` |
+| **perlgpt-test** | Testing environment | `docker-compose --profile test run perlgpt-test` |
+| **perlgpt-worker** | Batch processing | `docker-compose --profile worker up perlgpt-worker` |
+
+### Common Docker Operations
+
+```bash
+# Build the image
+docker-compose build
+
+# Start services
+docker-compose up -d
+
+# View logs
+docker-compose logs -f perlgpt
+
+# Execute commands
+docker-compose exec perlgpt perl tools/file_scanner.pl
+
+# Run tests
+docker-compose --profile test run perlgpt-test
+
+# Access shell
+docker-compose exec perlgpt /bin/bash
+
+# Stop services
+docker-compose down
+```
+
+### Docker with Volumes
+
+```bash
+# Process files from local directory
+docker run --rm \
+  -v $(pwd)/input:/app/data/input \
+  -v $(pwd)/output:/app/data/output \
+  perlgpt:latest \
+  perl jsonl_convertor/txt_jsonl_convert.pl
+
+# Development with live code reload
+docker-compose up -d perlgpt-dev
+docker-compose exec perlgpt-dev /bin/bash
+```
+
+### Benefits of Docker Deployment
+
+- ✅ **Reproducible** - Same environment every time
+- ✅ **Isolated** - No conflicts with system Perl
+- ✅ **Portable** - Run anywhere Docker runs
+- ✅ **Scalable** - Easy to deploy multiple workers
+- ✅ **Tested** - Pre-configured with all dependencies
+
+**📖 Complete Guide**: See [docs/DOCKER.md](docs/DOCKER.md) for comprehensive Docker documentation including:
+- Building custom images
+- Volume management
+- Environment configuration
+- Troubleshooting
+- Production deployment
+- CI/CD integration
+
+---
+
 ## Perl Use Cases
 
 Perl is a versatile programming language that excels in numerous domains:
@@ -744,13 +832,17 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for complete guidelines.
 - [x] Code quality standards (Perl::Critic)
 - [x] CI/CD pipeline with GitHub Actions
 - [x] Comprehensive documentation
+- [x] **Updated dependencies to latest versions**
+- [x] **Expanded test coverage for core modules**
+- [x] **Docker containers for reproducible environments**
+- [x] **Example scripts for common use cases**
+- [x] **Docker Compose multi-service setup**
 
 ### In Progress 🚧
 
 - [ ] Consolidating entropy_nlp variants
-- [ ] Expanding test coverage (target: 80%)
 - [ ] Performance benchmarking suite
-- [ ] Docker containers for reproducible environments
+- [ ] Expanding test coverage to 80%+
 
 ### Planned 📋
 

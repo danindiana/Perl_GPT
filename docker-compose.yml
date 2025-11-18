@@ -1,0 +1,138 @@
+version: '3.8'
+
+services:
+  # Main Perl_GPT service
+  perlgpt:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: perlgpt:latest
+    container_name: perlgpt-main
+    hostname: perlgpt
+    restart: unless-stopped
+
+    # Volume mounts for data persistence
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      # Mount local tools for development
+      - ./tools:/app/tools:ro
+      - ./examples:/app/examples:ro
+
+    # Environment variables
+    environment:
+      - PERL_ENV=production
+      - TZ=UTC
+
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+    # Network
+    networks:
+      - perlgpt-network
+
+    # Override default command for interactive use
+    # Uncomment one of these based on your needs:
+
+    # Option 1: Keep container running for exec commands
+    command: tail -f /dev/null
+
+    # Option 2: Run specific utility
+    # command: ["perl", "tools/file_scanner.pl"]
+
+    # Option 3: Run tests
+    # command: ["make", "test"]
+
+  # Development environment with additional tools
+  perlgpt-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    image: perlgpt:dev
+    container_name: perlgpt-dev
+    hostname: perlgpt-dev
+    restart: unless-stopped
+
+    volumes:
+      # Mount entire project for development
+      - .:/app
+      - ./data:/app/data
+
+    environment:
+      - PERL_ENV=development
+      - TZ=UTC
+
+    networks:
+      - perlgpt-network
+
+    # Keep running for development
+    command: tail -f /dev/null
+
+  # Worker service for batch processing
+  perlgpt-worker:
+    image: perlgpt:latest
+    container_name: perlgpt-worker
+    hostname: perlgpt-worker
+    restart: on-failure
+
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+
+    environment:
+      - PERL_ENV=worker
+      - TZ=UTC
+      - WORKER_ID=1
+
+    networks:
+      - perlgpt-network
+
+    # Configure for specific task
+    # Example: JSONL conversion
+    command: ["perl", "jsonl_convertor/txt_jsonl_convert.pl"]
+
+    # Only start when needed
+    profiles:
+      - worker
+
+  # Testing service
+  perlgpt-test:
+    image: perlgpt:latest
+    container_name: perlgpt-test
+    hostname: perlgpt-test
+
+    volumes:
+      - .:/app:ro
+
+    environment:
+      - PERL_ENV=test
+      - TZ=UTC
+
+    networks:
+      - perlgpt-network
+
+    # Run test suite
+    command: ["make", "test"]
+
+    # Only start when testing
+    profiles:
+      - test
+
+networks:
+  perlgpt-network:
+    driver: bridge
+    name: perlgpt-net
+
+volumes:
+  data:
+    name: perlgpt-data
+  logs:
+    name: perlgpt-logs
