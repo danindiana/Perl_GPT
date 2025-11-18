@@ -4,17 +4,26 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 [![Perl Version](https://img.shields.io/badge/perl-v5.34%2B-blue)](https://www.perl.org/)
+[![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-green)](/.github/workflows/)
+[![Code Quality](https://img.shields.io/badge/code%20quality-Perl::Critic-brightgreen)](/.perlcriticrc)
+[![Testing](https://img.shields.io/badge/testing-Test::More-orange)](t/)
+[![Dependencies](https://img.shields.io/badge/dependencies-cpanfile-red)](/cpanfile)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/danindiana/Perl_GPT/graphs/commit-activity)
 
 ## 📋 Table of Contents
 
 - [Overview](#overview)
+- [Quick Start](#quick-start)
 - [Repository Structure](#repository-structure)
 - [Functional Categories](#functional-categories)
 - [Key Utilities](#key-utilities)
 - [Technology Stack](#technology-stack)
 - [Installation & Usage](#installation--usage)
+- [Testing & Quality](#testing--quality)
 - [Perl Use Cases](#perl-use-cases)
 - [Contributing](#contributing)
+- [Project Roadmap](#project-roadmap)
 
 ---
 
@@ -30,6 +39,36 @@
 - 🔬 **Academic Tools** - DOI/arXiv metadata extraction
 - 🌐 **Network Utilities** - IP extraction, DNS query preparation
 - 🤖 **AI Integration** - ShellGenie polymorphic parser with LM support
+- 🧪 **Testing Framework** - Automated testing with Test::More
+- 🔧 **Build Tools** - Makefile for automation, dependency management with cpanfile
+
+---
+
+## Quick Start
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/danindiana/Perl_GPT.git
+cd Perl_GPT
+
+# 2. Install dependencies (choose one method)
+./install.sh                 # Interactive installer (recommended)
+make install                 # Using Makefile
+cpanm --installdeps .       # Direct cpanm installation
+
+# 3. Verify installation
+make deps-check              # Check dependencies
+make syntax-check            # Verify all scripts
+make test                    # Run test suite
+
+# 4. Try a utility
+cd tools
+perl file_scanner.pl         # Interactive file scanner
+
+# 5. Or use a specialized module
+cd ../arxiv_doi_grabber
+perl metadata_extractor.pl   # Extract academic metadata
+```
 
 ---
 
@@ -39,32 +78,41 @@
 graph TB
     Root[Perl_GPT Repository]
 
-    Root --> Utils[Root Utilities<br/>17 Scripts]
-    Root --> Dirs[Specialized Directories<br/>12 Modules]
+    Root --> Infra[Infrastructure<br/>Build & Config]
+    Root --> Tools[tools/<br/>General Utilities]
+    Root --> Modules[Specialized Modules<br/>10 Directories]
+    Root --> Tests[t/<br/>Test Suite]
 
-    Dirs --> EC[entropy_cleaner<br/>File Quality]
-    Dirs --> EN[entropy_nlp<br/>Statistical Analysis]
-    Dirs --> AG[arxiv_doi_grabber<br/>Metadata Extraction]
-    Dirs --> JC[jsonl_convertor<br/>Format Conversion]
-    Dirs --> FT[find_text<br/>File Discovery]
-    Dirs --> CD[clean_dupent<br/>Duplicate Removal]
-    Dirs --> SI[sshlog_ips<br/>IP Extraction]
-    Dirs --> DG[dig<br/>DNS Utilities]
-    Dirs --> IE[inference_engine_check<br/>LM Validation]
-    Dirs --> SG[shellgenie-polyparse<br/>Command Parser]
+    Infra --> IF1[Makefile<br/>Build Automation]
+    Infra --> IF2[cpanfile<br/>Dependencies]
+    Infra --> IF3[install.sh<br/>Setup Script]
+    Infra --> IF4[.perlcriticrc<br/>Code Quality]
 
-    Utils --> FS[File Scanners<br/>5 variants]
-    Utils --> FM[File Management<br/>merge, delete, size]
-    Utils --> TP[Text Processing<br/>concat, clean, mutate]
+    Tools --> T1[file_scanner.pl<br/>Search Files]
+    Tools --> T2[merge_directories.pl<br/>Merge Dirs]
+    Tools --> T3[Text Processing<br/>8 utilities]
+
+    Modules --> EC[entropy_cleaner<br/>File Quality]
+    Modules --> EN[entropy_nlp<br/>Statistical Analysis]
+    Modules --> AG[arxiv_doi_grabber<br/>Metadata Extraction]
+    Modules --> JC[jsonl_convertor<br/>Format Conversion]
+    Modules --> FT[find_text<br/>File Discovery]
+    Modules --> CD[clean_dupent<br/>Duplicate Removal]
+    Modules --> SI[sshlog_ips<br/>IP Extraction]
+    Modules --> DG[dig<br/>DNS Utilities]
+    Modules --> IE[inference_engine_check<br/>LM Validation]
+    Modules --> SG[shellgenie-polyparse<br/>Command Parser]
+
+    Tests --> TE1[00-load.t<br/>Syntax Tests]
+    Tests --> TE2[01-dependencies.t<br/>Module Tests]
 
     style Root fill:#e1f5ff
-    style Dirs fill:#fff4e1
-    style Utils fill:#e8f5e9
-    style EC fill:#f3e5f5
-    style EN fill:#f3e5f5
+    style Infra fill:#c8e6c9
+    style Tools fill:#fff4e1
+    style Modules fill:#e8f5e9
+    style Tests fill:#ffccbc
     style AG fill:#ffe0b2
     style JC fill:#ffe0b2
-    style SG fill:#ffccbc
 ```
 
 ### Directory Organization
@@ -602,22 +650,134 @@ Perl's concise syntax enables powerful automation:
 
 ---
 
+## Testing & Quality
+
+### Running Tests
+
+```bash
+# Run all tests
+make test
+
+# Run tests with verbose output
+make test-verbose
+
+# Check syntax of all scripts
+make syntax-check
+
+# Run Perl::Critic code quality checks
+make critic
+
+# Generate test coverage report
+make coverage
+```
+
+### Test Suite Structure
+
+```
+t/
+├── 00-load.t           # Syntax verification for all scripts
+├── 01-dependencies.t   # Dependency availability checks
+└── ...                 # Module-specific tests
+```
+
+### Code Quality Standards
+
+All code in this repository follows:
+
+- **Perl::Critic** severity level 3 or higher
+- **Strict and warnings** pragmas enabled
+- **Test coverage** target of 70%+ for new code
+- **POD documentation** for all modules
+- **Consistent naming** conventions
+
+### Continuous Integration
+
+GitHub Actions CI/CD pipeline automatically:
+
+- Tests on multiple Perl versions (5.30, 5.32, 5.34, 5.36, 5.38)
+- Runs on Ubuntu and macOS
+- Performs syntax checking
+- Runs Perl::Critic analysis
+- Validates documentation
+
+See [`.github/workflows/`](.github/workflows/) for pipeline configuration.
+
+---
+
 ## Contributing
 
-Contributions are welcome! This repository showcases AI-generated Perl utilities. When contributing:
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
-1. Follow existing naming conventions (`script_name.pl`, versioning with `v2`, `v3`)
-2. Include comprehensive documentation in each directory
-3. Add error handling and user confirmations for destructive operations
-4. Test scripts thoroughly before submitting
-5. Update README.md with new utilities
+### Quick Contribution Guide
+
+1. **Fork the repository** and create a feature branch
+2. **Follow coding standards** defined in CONTRIBUTING.md
+3. **Write tests** for new functionality
+4. **Run quality checks**: `make all`
+5. **Update documentation** as needed
+6. **Submit a pull request** with clear description
 
 ### Code Style
 
 - Use `strict` and `warnings` pragmas
-- Include clear comments explaining logic
-- Provide usage examples in script headers
-- Handle errors gracefully with informative messages
+- Follow naming conventions in CONTRIBUTING.md
+- Include POD documentation
+- Add comprehensive error handling
+- Write unit tests for new features
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for complete guidelines.
+
+---
+
+## Project Roadmap
+
+### Completed ✅
+
+- [x] Core utility scripts for file management
+- [x] Entropy-based text analysis tools
+- [x] Academic metadata extraction (arXiv/DOI)
+- [x] JSONL conversion for ML pipelines
+- [x] Repository-wide dependency management (cpanfile)
+- [x] Automated installation script
+- [x] Makefile for build automation
+- [x] Test framework with Test::More
+- [x] Code quality standards (Perl::Critic)
+- [x] CI/CD pipeline with GitHub Actions
+- [x] Comprehensive documentation
+
+### In Progress 🚧
+
+- [ ] Consolidating entropy_nlp variants
+- [ ] Expanding test coverage (target: 80%)
+- [ ] Performance benchmarking suite
+- [ ] Docker containers for reproducible environments
+
+### Planned 📋
+
+#### Short Term
+- [ ] Add pre-commit hooks for code quality
+- [ ] Create unified documentation site
+- [ ] Extend CI/CD to all modules
+- [ ] Add integration tests for all major utilities
+- [ ] Performance profiling tools
+
+#### Medium Term
+- [ ] Complete ShellGenie polymorphic parser implementation
+- [ ] Add support for parallel processing
+- [ ] Create interactive configuration tool
+- [ ] Package select modules for CPAN distribution
+- [ ] Add monitoring and logging framework
+
+#### Long Term
+- [ ] Web interface for common utilities
+- [ ] Plugin architecture for extensibility
+- [ ] Machine learning model integration
+- [ ] Cloud deployment templates (AWS, GCP, Azure)
+- [ ] Multi-language support (Python/Perl interop)
+
+### Community Requests
+
+Have a feature request? [Open an issue](https://github.com/danindiana/Perl_GPT/issues) on GitHub!
 
 ---
 
@@ -640,29 +800,37 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 ### Most Used Scripts
 
 ```bash
-# Clean low-quality files
-perl entropy_cleaner/clean_by_entropy.pl
+# File management tools
+perl tools/file_scanner.pl              # Search files by keywords
+perl tools/merge_directories.pl         # Merge directories safely
 
-# Convert to JSONL for ML
-perl jsonl_convertor/txt_jsonl_convert.pl
+# Data quality and cleaning
+perl entropy_cleaner/clean_by_entropy.pl  # Clean low-entropy files
 
-# Extract academic metadata
-perl arxiv_doi_grabber/metadata_extractor.pl
+# Format conversion
+perl jsonl_convertor/txt_jsonl_convert.pl # Convert to JSONL for ML
 
-# Merge directories safely
-perl merge_dirs_v2.pl
+# Academic research
+perl arxiv_doi_grabber/metadata_extractor.pl  # Extract DOI/arXiv metadata
 
-# Find all text files
-perl find_text/find_text_files.pl
-
-# Extract IPs from logs
-perl sshlog_ips/ip_extractor.pl
+# Network utilities
+perl sshlog_ips/ip_extractor.pl         # Extract IPs from logs
+perl find_text/find_text_files.pl       # Find all text files
 ```
 
 ### Dependency Installation
 
 ```bash
-# All required CPAN modules
+# Recommended: Use the automated installer
+./install.sh
+
+# Or use Makefile
+make install
+
+# Or install manually with cpanm
+cpanm --installdeps .
+
+# Or use cpan directly
 cpan install File::Find File::Basename File::Spec Time::Piece \
              JSON LWP::UserAgent Term::ANSIColor Data::Dumper \
              List::Util Math::BaseCalc Data::UUID Digest::MD5
