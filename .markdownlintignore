@@ -1,0 +1,15 @@
+# Markdown Lint Ignore File
+# Files and directories to exclude from markdown linting
+
+# Dependencies
+node_modules/
+vendor/
+
+# Git
+.git/
+
+# Generated files
+cover_db/
+
+# Specific files
+LICENSE

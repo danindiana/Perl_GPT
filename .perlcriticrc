@@ -1,0 +1,130 @@
+# Perl::Critic configuration for Perl_GPT
+# Enforces code quality standards and best practices
+# Run with: perlcritic --profile .perlcriticrc script.pl
+
+# Set the default severity level (1-5, where 5 is most severe)
+severity = 3
+
+# Set the default theme
+theme = core + pbp + security
+
+# Be verbose about what's being checked
+verbose = %f:%l:%c: [%p] %m (Severity: %s)\n
+
+# Color output for better readability
+color = 1
+
+# Only display violations (not successful checks)
+only = 1
+
+# Maximum McCabe complexity allowed
+[TestingAndDebugging::ProhibitNoStrict]
+allow = refs
+
+# Allow postfix controls (if/unless at end of line)
+[ControlStructures::ProhibitPostfixControls]
+allow = if unless
+
+# Configure naming conventions
+[NamingConventions::Capitalization]
+package_exemptions = main
+file_lexical_variables = [a-z_]\w*
+local_lexical_variables = [a-z_]\w*
+scoped_lexical_variables = [a-z_]\w*
+subroutine_exemptions = BEGIN END
+
+# Allow long subroutines for now (we'll refactor later)
+[Subroutines::ProhibitExcessComplexity]
+max_mccabe = 30
+
+# Don't require version in scripts
+[Modules::RequireVersionVar]
+severity = 2
+
+# Allow "use vars" for backward compatibility
+[ProhibitNoWarnings]
+allow = uninitialized once
+
+# Code layout preferences
+[CodeLayout::ProhibitTrailingWhitespace]
+severity = 3
+
+[CodeLayout::RequireConsistentNewlines]
+severity = 4
+
+[CodeLayout::RequireTidyCode]
+perltidyrc = .perltidyrc
+
+# Documentation requirements
+[Documentation::RequirePodSections]
+severity = 2
+lib_sections = NAME | SYNOPSIS | DESCRIPTION | AUTHOR | LICENSE
+
+[Documentation::PodSpelling]
+severity = 2
+stop_words = arxiv doi metadata jsonl JSONL UUID GPT API JSON
+
+# Input/Output best practices
+[InputOutput::RequireCheckedSyscalls]
+functions = open close
+severity = 4
+
+[InputOutput::ProhibitBarewordFileHandles]
+severity = 4
+
+[InputOutput::ProhibitTwoArgOpen]
+severity = 4
+
+# Error handling
+[ErrorHandling::RequireCarping]
+severity = 3
+
+# Security policies
+[ValuesAndExpressions::ProhibitCommaSeparatedStatements]
+severity = 4
+
+[ValuesAndExpressions::ProhibitMagicNumbers]
+severity = 2
+allowed_values = -1 0 1 2 3.5 10 100 1000 2048 4096
+
+# Regular expressions
+[RegularExpressions::RequireExtendedFormatting]
+minimum_regex_length_to_complain_about = 15
+
+[RegularExpressions::ProhibitUnusedCapture]
+severity = 3
+
+# Variables
+[Variables::ProhibitPunctuationVars]
+allow = $@ $! $? $0 $_ %ENV @ARGV
+
+[Variables::RequireLocalizedPunctuationVars]
+severity = 4
+
+# Subroutines
+[Subroutines::ProhibitExplicitReturnUndef]
+severity = 3
+
+[Subroutines::RequireFinalReturn]
+severity = 3
+
+# References and structures
+[References::ProhibitDoubleSigils]
+severity = 3
+
+# Built-in functions
+[BuiltinFunctions::ProhibitStringyEval]
+severity = 5
+
+[BuiltinFunctions::RequireGlobFunction]
+severity = 3
+
+# Disable some overly strict policies for utility scripts
+[-Subroutines::ProhibitSubroutinePrototypes]
+[-Subroutines::RequireArgUnpacking]
+[-ValuesAndExpressions::ProhibitConstantPragma]
+[-ControlStructures::ProhibitCascadingIfElse]
+
+# Temporarily disable until we add POD to all scripts
+[-Documentation::RequirePodAtEnd]
+[-Documentation::RequirePodLinksIncludeText]

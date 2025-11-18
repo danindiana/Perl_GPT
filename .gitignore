@@ -1,0 +1,104 @@
+# Perl specific
+*.swp
+*.swo
+*~
+.*.swp
+.*.swo
+
+# Perl build artifacts
+blib/
+_build/
+cover_db/
+inc/
+Build
+Build.bat
+.build/
+*.o
+*.bs
+
+# Perl module files
+pm_to_blib
+*.tar.gz
+*.zip
+Makefile.old
+MANIFEST.bak
+META.*
+MYMETA.*
+
+# Carton
+local/
+.carton/
+
+# cpanm
+/.cpanm/
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+*.bak
+*.backup
+*.log
+*.old
+
+# Editor files
+.vscode/
+.idea/
+*.sublime-*
+.DS_Store
+Thumbs.db
+
+# Test coverage
+cover_db/
+*.gcov
+*.gcda
+*.gcno
+
+# Perl::Critic
+.perlcritic
+
+# Development files
+*.dev
+*.development
+nytprof.out
+nytprof/
+
+# OS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Archive files
+*.tar
+*.tgz
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# Compiled source
+*.com
+*.class
+*.dll
+*.exe
+*.so
+*.dylib
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+*.db
+
+# Node modules (if any JS tooling is added)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
